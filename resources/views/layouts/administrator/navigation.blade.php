@@ -1,16 +1,6 @@
 <nav class="main-sidebar ps-menu">
-    <!-- <div class="sidebar-toggle action-toggle">
-                <a href="#">
-                    <i class="fas fa-bars"></i>
-                </a>
-            </div> -->
-    <!-- <div class="sidebar-opener action-toggle">
-                <a href="#">
-                    <i class="ti-angle-right"></i>
-                </a>
-            </div> -->
     <div class="sidebar-header">
-        <div class="text">AR</div>
+        <div class="text">Administrator</div>
         <div class="close-sidebar action-toggle">
             <i class="ti-close"></i>
         </div>
@@ -34,7 +24,8 @@
                     </a>
                     <ul class="sub-menu {{ request()->segment(1) == 'kofigurasi' ? 'expand' : '' }}">
                         @can('read role')
-                            <li>
+                            <li
+                                class="{{ request()->segment(1) == 'kofigurasi' && request()->segment(2) == 'roles' ? 'active' : '' }}">
                                 <a href="{{ route('roles.index') }}" class="link">
                                     <span>Roles</span>
                                 </a>
@@ -43,7 +34,6 @@
                     </ul>
                 </li>
             @endcan
-
         </ul>
     </div>
 </nav>

@@ -17,7 +17,8 @@
                     <li class="menu-content ps-menu">
                         <a href="#">
                             <div class="message-image">
-                                <img src="../assets/images/avatar1.png" class="rounded-circle w-100" alt="user1">
+                                <img src="{{ asset('assets/images/avatar1.png') }}" class="rounded-circle w-100"
+                                    alt="user1">
                             </div>
                             <div class="message-content read">
                                 <div class="subject">
@@ -31,7 +32,8 @@
                         </a>
                         <a href="#">
                             <div class="message-image">
-                                <img src="../assets/images/avatar2.png" class="rounded-circle w-100" alt="user1">
+                                <img src="{{ asset('assets/images/avatar2.png') }}" class="rounded-circle w-100"
+                                    alt="user1">
                             </div>
                             <div class="message-content">
                                 <div class="subject">
@@ -45,7 +47,8 @@
                         </a>
                         <a href="#">
                             <div class="message-image">
-                                <img src="../assets/images/avatar1.png" class="rounded-circle w-100" alt="user1">
+                                <img src="{{ asset('assets/images/avatar1.png') }}" class="rounded-circle w-100"
+                                    alt="user1">
                             </div>
                             <div class="message-content read">
                                 <div class="subject">
@@ -59,7 +62,8 @@
                         </a>
                         <a href="#">
                             <div class="message-image">
-                                <img src="../assets/images/avatar2.png" class="rounded-circle w-100" alt="user1">
+                                <img src="{{ asset('assets/images/avatar2.png') }}" class="rounded-circle w-100"
+                                    alt="user1">
                             </div>
                             <div class="message-content">
                                 <div class="subject">
@@ -73,7 +77,8 @@
                         </a>
                         <a href="#">
                             <div class="message-image">
-                                <img src="../assets/images/avatar2.png" class="rounded-circle w-100" alt="user1">
+                                <img src="{{ asset('assets/images/avatar2.png') }}" class="rounded-circle w-100"
+                                    alt="user1">
                             </div>
                             <div class="message-content">
                                 <div class="subject">
@@ -140,7 +145,7 @@
                         <span></span>
                         <div>Admin</div>
                     </div>
-                    <img class="img-user" src="../assets/images/avatar1.png" alt="user"srcset="">
+                    <img class="img-user" src="{{ asset('assets/images/avatar1.png') }}" alt="user"srcset="">
                 </a>
                 <ul class="dropdown-menu small">
                     <!-- <li class="menu-header">

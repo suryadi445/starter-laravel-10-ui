@@ -1,7 +1,7 @@
-@extends('layouts.admin.master')
+@extends('layouts.administrator.master')
 
 @push('css')
-    <link rel="stylesheet" href="{{ asset('') }}vendor/chart.js/Chart.min.css">
+    <link rel="stylesheet" href="{{ asset('vendor/chart.js/Chart.min.css') }}">
 @endpush
 
 @section('content')
@@ -111,9 +111,9 @@
                 <div class="col-md-4">
                     <div class="card">
                         <!-- <div class="float-label">
-                                            <h6>Sales</h6>
-                                            <h4>$1500</h4>
-                                        </div> -->
+                                                                        <h6>Sales</h6>
+                                                                        <h4>$1500</h4>
+                                                                    </div> -->
                         <div class="card-body">
                             <div id="apex-chart"></div>
                         </div>
@@ -121,9 +121,9 @@
                     <br>
                     <div class="card">
                         <!-- <div class="float-label">
-                                            <h6>Profit</h6>
-                                            <h4>$500</h4>
-                                        </div> -->
+                                                                        <h6>Profit</h6>
+                                                                        <h4>$500</h4>
+                                                                    </div> -->
                         <span></span>
 
                         <div class="card-body">
@@ -243,7 +243,7 @@
                                                 Hi, Mba Inem
                                             </div>
                                             <div class="message-avatar">
-                                                <img src="{{ asset('') }}assets/images/avatar1.png" alt="">
+                                                <img src="{{ asset('assets/images/avatar2.png') }}" alt="">
                                             </div>
                                         </div>
                                         <div class="message">
@@ -254,7 +254,7 @@
                                                 How are you?
                                             </div>
                                             <div class="message-avatar">
-                                                <img src="{{ asset('') }}assets/images/avatar1.png" alt="">
+                                                <img src="{{ asset('assets/images/avatar2.png') }}" alt="">
                                             </div>
                                         </div>
                                     </li>
@@ -267,7 +267,7 @@
                                                 Hi, i am good
                                             </div>
                                             <div class="message-avatar">
-                                                <img src="{{ asset('') }}assets/images/avatar2.png" alt="">
+                                                <img src="{{ asset('assets/images/avatar2.png') }}" alt="">
                                             </div>
                                         </div>
                                     </li>
@@ -280,7 +280,7 @@
                                                 Glad to see you ;)
                                             </div>
                                             <div class="message-avatar">
-                                                <img src="{{ asset('') }}assets/images/avatar1.png" alt="">
+                                                <img src="{{ asset('assets/images/avatar1.png') }}" alt="">
                                             </div>
                                         </div>
                                     </li>
@@ -296,7 +296,7 @@
                                                 What do you think about my new Dashboard?
                                             </div>
                                             <div class="message-avatar">
-                                                <img src="{{ asset('') }}assets/images/avatar2.png" alt="">
+                                                <img src="{{ asset('assets/images/avatar2.png') }}" alt="">
                                             </div>
                                         </div>
                                     </li>
@@ -312,7 +312,7 @@
                                                 Alo...
                                             </div>
                                             <div class="message-avatar">
-                                                <img src="{{ asset('') }}assets/images/avatar2.png" alt="">
+                                                <img src="{{ asset('assets/images/avatar2.png') }}" alt="">
                                             </div>
                                         </div>
                                         <div class="message">
@@ -323,7 +323,7 @@
                                                 Are you there?
                                             </div>
                                             <div class="message-avatar">
-                                                <img src="{{ asset('') }}assets/images/avatar2.png" alt="">
+                                                <img src="{{ asset('assets/images/avatar2.png') }}" alt="">
                                             </div>
                                         </div>
                                     </li>
@@ -336,7 +336,7 @@
                                                 Hi, i am here
                                             </div>
                                             <div class="message-avatar">
-                                                <img src="{{ asset('') }}assets/images/avatar1.png" alt="">
+                                                <img src="{{ asset('assets/images/avatar1.png') }}" alt="">
                                             </div>
                                         </div>
                                         <div class="message">
@@ -347,7 +347,7 @@
                                                 Your Dashboard is great
                                             </div>
                                             <div class="message-avatar">
-                                                <img src="{{ asset('') }}assets/images/avatar1.png" alt="">
+                                                <img src="{{ asset('assets/images/avatar1.png') }}" alt="">
                                             </div>
                                         </div>
                                     </li>
@@ -363,7 +363,7 @@
                                                 How does the binding and digesting work in ReactJS?, Bang?
                                             </div>
                                             <div class="message-avatar">
-                                                <img src="{{ asset('') }}assets/images/avatar2.png" alt="">
+                                                <img src="{{ asset('assets/images/avatar2.png') }}" alt="">
                                             </div>
                                         </div>
                                     </li>
@@ -376,7 +376,7 @@
                                                 oh that's your question?
                                             </div>
                                             <div class="message-avatar">
-                                                <img src="{{ asset('') }}assets/images/avatar1.png" alt="">
+                                                <img src="{{ asset('assets/images/avatar1.png') }}" alt="">
                                             </div>
                                         </div>
                                         <div class="message">
@@ -387,7 +387,7 @@
                                                 little reduntant, no?
                                             </div>
                                             <div class="message-avatar">
-                                                <img src="{{ asset('') }}assets/images/avatar1.png" alt="">
+                                                <img src="{{ asset('assets/images/avatar1.png') }}" alt="">
                                             </div>
                                         </div>
                                         <div class="message">
@@ -398,7 +398,7 @@
                                                 literally we get the question daily
                                             </div>
                                             <div class="message-avatar">
-                                                <img src="{{ asset('') }}assets/images/avatar1.png" alt="">
+                                                <img src="{{ asset('assets/images/avatar1.png') }}" alt="">
                                             </div>
                                         </div>
                                     </li>
@@ -424,7 +424,7 @@
 @endsection
 
 @push('js')
-    <script src="{{ asset('') }}vendor/chart.js/Chart.min.js"></script>
+    <script src="{{ asset('vendor/chart.js/Chart.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-    <script src="{{ asset('') }}assets/js/pages/index.min.js"></script>
+    <script src="{{ asset('assets/js/pages/index.min.js') }}"></script>
 @endpush
