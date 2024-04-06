@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\RoleDataTable;
+use App\Http\Requests\RoleRequest;
+use App\Models\Role;
 use Illuminate\Http\Request;
 
 class RoleController extends Controller
@@ -42,17 +44,27 @@ class RoleController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Role $role)
     {
-        //
+        return view('konfigurasi.role-form', compact('role'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(RoleRequest $request, string $id)
     {
-        //
+        $role = Role::findOrFail($id);
+
+        $role->update([
+            'name' => $request['name'],
+            'guard_name' => $request['guard_name'],
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Data berhasil diperbarui.'
+        ]);
     }
 
     /**

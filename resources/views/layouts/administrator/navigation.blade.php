@@ -17,15 +17,15 @@
                 <span class="text-uppercase">User Interface</span>
             </li>
             @can('read konfigurasi')
-                <li class="{{ request()->segment(1) == 'kofigurasi' ? 'active open' : '' }}">
+                <li class="{{ request()->segment(1) == 'konfigurasi' ? 'active open' : '' }}">
                     <a href="#" class="main-menu has-dropdown">
                         <i class="ti-desktop"></i>
                         <span>Konfigurasi</span>
                     </a>
-                    <ul class="sub-menu {{ request()->segment(1) == 'kofigurasi' ? 'expand' : '' }}">
+                    <ul class="sub-menu {{ request()->segment(1) == 'konfigurasi' ? 'expand' : '' }}">
                         @can('read role')
                             <li
-                                class="{{ request()->segment(1) == 'kofigurasi' && request()->segment(2) == 'roles' ? 'active' : '' }}">
+                                class="{{ request()->segment(1) == 'konfigurasi' && request()->segment(2) == 'roles' ? 'active' : '' }}">
                                 <a href="{{ route('roles.index') }}" class="link">
                                     <span>Roles</span>
                                 </a>

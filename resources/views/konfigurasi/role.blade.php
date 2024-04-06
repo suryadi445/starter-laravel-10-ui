@@ -1,8 +1,5 @@
 @extends('layouts.administrator.master')
-@push('css')
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.datatables.net/2.0.3/css/dataTables.bootstrap5.min.css" rel="stylesheet">
-@endpush
+
 @section('content')
     <div class="main-content">
         <div class="title">
@@ -32,24 +29,66 @@
                 </div>
             </div>
         </div>
+
+        <x-modal id="modalAction" title="Modal title" size="lg">
+
+        </x-modal>
     </div>
 @endsection
 
 @push('js')
-    <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
-    <script src="{{ asset('vendor/datatables.net/js/jquery.dataTables.min.js') }}"></script>
-    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script> --}}
-    <script src="https://cdn.datatables.net/2.0.3/js/dataTables.js"></script>
-    <script src="https://cdn.datatables.net/2.0.3/js/dataTables.bootstrap5.js"></script>
-
-    {{-- <script src="{{ asset('vendor/datatables.net-bs5/js/dataTables.bootstrap5.min.js') }}"></script>
-    <script src="{{ asset('vendor/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
-    <script src="{{ asset('vendor/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js') }}"></script>
-    <script src="../assets/js/pages/datatables.min.js"></script> --}}
-
-
-
-
-
     {{ $dataTable->scripts() }}
+
+    <script>
+        $(document).on('click', '.action', function() {
+            let id = $(this).data('id');
+
+            $.ajax({
+                type: "GET",
+                url: `{{ url('konfigurasi/roles/') }}/${id}/edit`,
+                success: function(response) {
+                    $('#modalAction .modal-title').html('Edit Role');
+                    $('#form-modalAction').attr('action', `{{ url('konfigurasi/roles') }}/${id}`);
+                    $('#modalAction .modal-body').html(response);
+
+                    $('#modalAction').modal('show');
+
+                    handleSubmit();
+                }
+            });
+
+            function handleSubmit() {
+                $('#save-modal').on('click', function(e) {
+                    e.preventDefault();
+                    var formData = $('#form-modalAction').serialize();
+
+                    $.ajax({
+                        type: 'PUT',
+                        url: `{{ url('konfigurasi/roles/') }}/${id}`,
+                        data: formData,
+                        success: function(response) {
+                            $('#modalAction').modal('hide');
+
+                            var table = $('#role-table').DataTable();
+                            var row = table.row('#' + id);
+                            row.data(response.updatedData);
+                            table.draw(false);
+
+                            showToast('success', response.message);
+                        },
+                        error: function(xhr, status, error) {
+                            var response = JSON.parse(xhr.responseText);
+                            if (response.errors) {
+                                Object.keys(response.errors).forEach(function(key) {
+                                    var errorMessage = response.errors[key][0];
+                                    $('#' + key).siblings('.text-danger').text(
+                                        errorMessage);
+                                });
+                            }
+                        }
+                    });
+                });
+            }
+        });
+    </script>
 @endpush

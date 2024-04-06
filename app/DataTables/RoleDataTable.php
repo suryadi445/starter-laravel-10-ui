@@ -33,10 +33,10 @@ class RoleDataTable extends DataTable
             ->addColumn('action', function ($data) {
                 $actionBtn = '';
                 if (Gate::allows('update role')) {
-                    $actionBtn .= '<button type="button" name="edit" id="' . $data->id . '" class="edit btn btn-warning btn-sm editRole me-2"><i class="ti-pencil-alt"></i></button>';
+                    $actionBtn .= '<button type="button" name="edit" data-id="' . $data->id . '" class="action btn btn-warning btn-sm me-2"><i class="ti-pencil-alt"></i></button>';
                 }
                 if (Gate::allows('delete role')) {
-                    $actionBtn .= '<button type="button" name="delete" id="' . $data->id . '" class="delete btn btn-danger btn-sm deleteRole"><i class="ti-trash"></i></button>';
+                    $actionBtn .= '<button type="button" name="delete" data-id="' . $data->id . '" class="action btn btn-danger btn-sm"><i class="ti-trash"></i></button>';
                 }
 
                 return '<div class="d-flex">' . $actionBtn . '</div>';

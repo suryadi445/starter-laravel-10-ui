@@ -24,5 +24,5 @@ Auth::routes();
 Route::middleware('auth')->group(function () {
 
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-    Route::resource('kofigurasi/roles', RoleController::class);
+    Route::resource('konfigurasi/roles', RoleController::class);
 });
