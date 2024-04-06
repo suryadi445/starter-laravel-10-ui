@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\RoleDataTable;
 use Illuminate\Http\Request;
 
 class RoleController extends Controller
@@ -9,9 +10,9 @@ class RoleController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(RoleDataTable $dataTable)
     {
-        return view('konfigurasi/role');
+        return $dataTable->render('konfigurasi/role');
     }
 
     /**
