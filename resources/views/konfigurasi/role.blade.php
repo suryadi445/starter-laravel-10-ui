@@ -22,7 +22,19 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive text-left">
-                                {{ $dataTable->table() }}
+                                <table class="table table-bordered dataTable">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Name</th>
+                                            <th>Created</th>
+                                            <th>Updated</th>
+                                            <th width="100px">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -30,65 +42,125 @@
             </div>
         </div>
 
-        <x-modal id="modalAction" title="Modal title" size="lg">
-
-        </x-modal>
+        <x-modal id="modalAction" title="Modal title" size="lg"></x-modal>
     </div>
 @endsection
 
 @push('js')
-    {{ $dataTable->scripts() }}
+    <script type="text/javascript">
+        $(function() {
+            // ajax table
+            var table = $('.dataTable').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{{ route('roles.index') }}",
+                "columnDefs": [{
+                    "targets": "_all",
+                    "className": "text-start"
+                }],
+                columns: [{
+                        data: 'id',
+                        name: 'id'
+                    },
+                    {
+                        data: 'name',
+                        name: 'name'
+                    },
+                    {
+                        data: 'created_at',
+                        name: 'created_at'
+                    },
+                    {
+                        data: 'updated_at',
+                        name: 'updated_at'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false,
+                        searchable: false
+                    },
+                ]
+            });
 
-    <script>
-        $(document).on('click', '.action', function() {
-            let id = $(this).data('id');
-
-            $.ajax({
-                type: "GET",
-                url: `{{ url('konfigurasi/roles/') }}/${id}/edit`,
-                success: function(response) {
+            // edit
+            $('body').on('click', '.editRole', function() {
+                var roleId = $(this).data('id');
+                $.get("{{ route('roles.index') }}" + '/' + roleId + '/edit', function(response) {
                     $('#modalAction .modal-title').html('Edit Role');
-                    $('#form-modalAction').attr('action', `{{ url('konfigurasi/roles') }}/${id}`);
+                    $('#form-modalAction').attr('action',
+                        `{{ url('konfigurasi/roles') }}/${roleId}`);
                     $('#modalAction .modal-body').html(response);
 
                     $('#modalAction').modal('show');
-
-                    handleSubmit();
-                }
+                })
             });
 
-            function handleSubmit() {
-                $('#save-modal').on('click', function(e) {
-                    e.preventDefault();
-                    var formData = $('#form-modalAction').serialize();
-
-                    $.ajax({
-                        type: 'PUT',
-                        url: `{{ url('konfigurasi/roles/') }}/${id}`,
-                        data: formData,
-                        success: function(response) {
-                            $('#modalAction').modal('hide');
-
-                            var table = $('#role-table').DataTable();
-                            var row = table.row('#' + id);
-                            row.data(response.updatedData);
-                            table.draw(false);
-
-                            showToast('success', response.message);
-                        },
-                        error: function(xhr, status, error) {
-                            var response = JSON.parse(xhr.responseText);
-                            if (response.errors) {
-                                Object.keys(response.errors).forEach(function(key) {
-                                    var errorMessage = response.errors[key][0];
-                                    $('#' + key).siblings('.text-danger').text(
-                                        errorMessage);
-                                });
+            // delete
+            $('body').on('click', '.deleteRole', function() {
+                var roleId = $(this).data('id');
+                Swal.fire({
+                    title: 'Apakah anda yakin?',
+                    text: "Data yang di hapus tidak dapat dikembalikan!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#82868',
+                    confirmButtonText: 'Ya, hapus!',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            type: "DELETE",
+                            url: "{{ url('konfigurasi/roles') }}/" + roleId,
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            success: function(response) {
+                                table.draw();
+                                showToast('success', response.message);
+                            },
+                            error: function(response) {
+                                var errorMessage = response.responseJSON
+                                    .message;
+                                showToast('error',
+                                    errorMessage);
                             }
-                        }
-                    });
+                        });
+                    }
                 });
-            }
+            });
+
+            // save
+            $('#save-modal').click(function(e) {
+                e.preventDefault();
+                $(this).html('Sending..');
+                var id = $('#roleId').val();
+
+                $.ajax({
+                    data: $('#form-modalAction').serialize(),
+                    url: `{{ url('konfigurasi/roles/') }}/${id}`,
+                    type: "POST",
+                    dataType: 'json',
+                    success: function(response) {
+                        $('#modalAction').modal('hide');
+                        table.draw();
+                        showToast('success', response.message);
+                        $('#save-modal').html('Save');
+                    },
+                    error: function(response) {
+                        var errors = response.responseJSON.errors;
+                        if (errors) {
+                            Object.keys(errors).forEach(function(key) {
+                                var errorMessage = errors[key][0];
+                                $('#' + key).siblings('.text-danger').text(
+                                    errorMessage);
+                            });
+                        }
+                        $('#save-modal').html('Save');
+                    }
+                });
+            });
         });
     </script>
 @endpush

@@ -6,6 +6,7 @@
             position: 'topCenter',
             timeout: 3000,
             progressBar: true,
+            displayMode: 'once',
         });
     }
 </script>

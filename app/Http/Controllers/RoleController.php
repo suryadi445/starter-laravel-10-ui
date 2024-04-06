@@ -2,19 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use App\DataTables\RoleDataTable;
-use App\Http\Requests\RoleRequest;
 use App\Models\Role;
 use Illuminate\Http\Request;
+use App\Services\RoleService;
+
 
 class RoleController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index(RoleDataTable $dataTable)
+
+    protected $roleService;
+
+    public function __construct(RoleService $roleService)
     {
-        return $dataTable->render('konfigurasi/role');
+        $this->roleService = $roleService;
+    }
+
+    public function index(Request $request)
+    {
+        if ($request->ajax()) {
+            return $this->roleService->dataTable();
+        }
+
+        return view('konfigurasi.role');
     }
 
     /**
@@ -52,26 +61,20 @@ class RoleController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(RoleRequest $request, string $id)
+    public function update(Request $request, string $id)
     {
-        $role = Role::findOrFail($id);
+        $requestData = $request->only(['name', 'guard_name']);
+        $response = $this->roleService->update($id, $requestData);
 
-        $role->update([
-            'name' => $request['name'],
-            'guard_name' => $request['guard_name'],
-        ]);
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Data berhasil diperbarui.'
-        ]);
+        return response()->json($response);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Role $role)
     {
-        //
+        $result = $this->roleService->destroy($role);
+        return response()->json($result);
     }
 }

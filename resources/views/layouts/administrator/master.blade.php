@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Dashboard &mdash; Administrator</title>
 
     {{-- cdn --}}
@@ -61,6 +62,8 @@
     <script src="{{ asset('assets/js/main.min.js') }}"></script>
     <script src="{{ asset('vendor/datatables.net/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('vendor/izitoast/js/iziToast.min.js') }}"></script>
+    <script src="{{ asset('vendor/sweetalert2/sweetalert2.all.min.js') }}"></script>
+
     <script src="https://cdn.datatables.net/2.0.3/js/dataTables.js"></script>
     <script src="https://cdn.datatables.net/2.0.3/js/dataTables.bootstrap5.js"></script>
 
