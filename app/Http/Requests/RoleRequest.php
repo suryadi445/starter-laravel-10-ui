@@ -22,7 +22,7 @@ class RoleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:100',
+            'name' => 'required|string|max:100|unique:roles,name' . $this->id,
             'guard_name' => 'required|string|max:100',
         ];
     }

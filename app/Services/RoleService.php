@@ -36,6 +36,24 @@ class RoleService
             ->make(true);
     }
 
+    // store
+    public function store(array $data)
+    {
+        try {
+            $role = Role::create($data);
+            return [
+                'success' => true,
+                'message' => 'Data berhasil disimpan.',
+                'role' => $role
+            ];
+        } catch (\Exception $e) {
+            return [
+                'success' => false,
+                'message' => 'Gagal menyimpan data: ' . $e->getMessage()
+            ];
+        }
+    }
+
 
     // update role
     public function update($id, $requestData)

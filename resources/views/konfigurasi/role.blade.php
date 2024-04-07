@@ -13,7 +13,7 @@
                             <div class="d-flex justify-content-between align-items-center">
                                 <h4 class="fw-bold">Roles</h4>
                                 @can('create role')
-                                    <button type="button" name="Add" class="btn btn-primary btn-sm" id="create">
+                                    <button type="button" name="Add" class="btn btn-primary btn-sm" id="createRole">
                                         <i class="ti-plus"></i>
                                         Tambah Data
                                     </button>
@@ -54,13 +54,18 @@
                 processing: true,
                 serverSide: true,
                 ajax: "{{ route('roles.index') }}",
-                "columnDefs": [{
+                columnDefs: [{
                     "targets": "_all",
                     "className": "text-start"
                 }],
                 columns: [{
                         data: 'id',
-                        name: 'id'
+                        name: 'id',
+                        orderable: true,
+                        searchable: false,
+                        render: function(data, type, full, meta) {
+                            return meta.row + 1;
+                        }
                     },
                     {
                         data: 'name',
@@ -83,13 +88,21 @@
                 ]
             });
 
+            // create
+            $('#createRole').click(function() {
+                $.get("{{ route('roles.create') }}", function(response) {
+                    $('#modalAction .modal-title').html('Tambah Role');
+                    $('#modalAction .modal-body').html(response);
+
+                    $('#modalAction').modal('show');
+                })
+            })
+
             // edit
             $('body').on('click', '.editRole', function() {
                 var roleId = $(this).data('id');
                 $.get("{{ route('roles.index') }}" + '/' + roleId + '/edit', function(response) {
                     $('#modalAction .modal-title').html('Edit Role');
-                    $('#form-modalAction').attr('action',
-                        `{{ url('konfigurasi/roles') }}/${roleId}`);
                     $('#modalAction .modal-body').html(response);
 
                     $('#modalAction').modal('show');
