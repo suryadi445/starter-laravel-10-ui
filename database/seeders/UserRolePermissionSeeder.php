@@ -48,17 +48,20 @@ class UserRolePermissionSeeder extends Seeder
             $role_manager = Role::create(['name' => 'manager', 'guard_name' => 'web']);
             $role_spv = Role::create(['name' => 'spv', 'guard_name' => 'web']);
 
-            $permissions = Permission::create(['name' => 'read role']);
-            $permissions = Permission::create(['name' => 'create role']);
-            $permissions = Permission::create(['name' => 'update role']);
-            $permissions = Permission::create(['name' => 'delete role']);
+            Permission::create(['name' => 'read konfigurasi/roles']);
+            Permission::create(['name' => 'create konfigurasi/roles']);
+            Permission::create(['name' => 'update konfigurasi/roles']);
+            Permission::create(['name' => 'delete konfigurasi/roles']);
             Permission::create(['name' => 'read konfigurasi']);
+            Permission::create(['name' => 'read konfigurasi/permissions']);
 
-            $role_admin->givePermissionTo('read role');
-            $role_admin->givePermissionTo('create role');
-            $role_admin->givePermissionTo('update role');
-            $role_admin->givePermissionTo('delete role');
+            $role_admin->givePermissionTo('read konfigurasi/roles');
+            $role_admin->givePermissionTo('create konfigurasi/roles');
+            $role_admin->givePermissionTo('update konfigurasi/roles');
+            $role_admin->givePermissionTo('delete konfigurasi/roles');
             $role_admin->givePermissionTo('read konfigurasi');
+
+            $role_admin->givePermissionTo('read konfigurasi/permissions');
 
             $admin->assignRole('admin');
             $manager->assignRole('manager');

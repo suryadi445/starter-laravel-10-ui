@@ -12,7 +12,7 @@
                         <div class="card-header">
                             <div class="d-flex justify-content-between align-items-center">
                                 <h4 class="fw-bold">Roles</h4>
-                                @can('create role')
+                                @can('create konfigurasi/roles')
                                     <button type="button" name="Add" class="btn btn-primary btn-sm" id="createRole">
                                         <i class="ti-plus"></i>
                                         Tambah Data

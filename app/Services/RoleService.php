@@ -24,10 +24,10 @@ class RoleService
             })
             ->addColumn('action', function ($row) {
                 $actionBtn = '';
-                if (Gate::allows('update role')) {
+                if (Gate::allows('update konfigurasi/roles')) {
                     $actionBtn .= '<button type="button" name="edit" data-id="' . $row->id . '" class="editRole btn btn-warning btn-sm me-2"><i class="ti-pencil-alt"></i></button>';
                 }
-                if (Gate::allows('delete role')) {
+                if (Gate::allows('delete konfigurasi/roles')) {
                     $actionBtn .= '<button type="button" name="delete" data-id="' . $row->id . '" class="deleteRole btn btn-danger btn-sm"><i class="ti-trash"></i></button>';
                 }
                 return '<div class="d-flex">' . $actionBtn . '</div>';
