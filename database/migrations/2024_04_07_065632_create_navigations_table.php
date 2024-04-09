@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('icon')->nullable();
             $table->bigInteger('main_menu')->nullable();
             $table->integer('sort')->default(0);
+            $table->enum('type_menu', ['parent', 'child', 'single'])->default('single');
             $table->timestamps();
         });
     }

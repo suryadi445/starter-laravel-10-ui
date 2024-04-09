@@ -180,6 +180,9 @@
                         table.draw();
                         showToast('success', response.message);
                         $('#save-modal').html('Save');
+                        setTimeout(() => {
+                            location.reload();
+                        }, 3000);
                     },
                     error: function(response) {
                         var errors = response.responseJSON.errors;
@@ -196,12 +199,21 @@
             });
 
 
-            $(document).on('change', 'input[name="menu"]', function() {
+            $(document).on('change', '#type_menu', function() {
                 let value = $(this).val()
 
                 if (value == 'child') {
                     $('#main_menu').removeClass('d-none')
+                    $('#icon').prop('readonly', true);
+                    $('#icon').addClass('bg-light');
+                    $('#icon').val('');
+                } else if (value == 'parent') {
+                    $('#icon').prop('readonly', false)
+                    $('#icon').removeClass('bg-light');
+                    $('#main_menu').addClass('d-none')
                 } else {
+                    $('#icon').prop('readonly', false)
+                    $('#icon').removeClass('bg-light');
                     $('#main_menu').addClass('d-none')
                 }
             })

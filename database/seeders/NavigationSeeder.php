@@ -18,18 +18,28 @@ class NavigationSeeder extends Seeder
             'url' => 'konfigurasi',
             'icon' => 'ti-settings',
             'main_menu' => null,
+            'type_menu' => 'parent',
         ]);
         Navigation::create([
             'name' => 'Roles',
             'url' => 'konfigurasi/roles',
             'icon' => '',
             'main_menu' => 1,
+            'type_menu' => 'child',
         ]);
         Navigation::create([
             'name' => 'Permissions',
             'url' => 'konfigurasi/permissions',
             'icon' => '',
             'main_menu' => 1,
+            'type_menu' => 'child',
+        ]);
+        Navigation::create([
+            'name' => 'Menu',
+            'url' => 'konfigurasi/navigation',
+            'icon' => '',
+            'main_menu' => 1,
+            'type_menu' => 'child',
         ]);
     }
 }

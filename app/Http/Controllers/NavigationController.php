@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\NavigationRequest;
 use App\Models\Navigation;
+use App\Models\Role;
 use App\Services\NavigationService;
 use Illuminate\Http\Request;
 
@@ -32,9 +33,10 @@ class NavigationController extends Controller
     public function create()
     {
         $navigation = new Navigation();
-        $parent = Navigation::whereNull('main_menu')->get();
+        $parent = Navigation::where('type_menu', '=', 'parent')->get();
+        $role = Role::all();
 
-        return view('konfigurasi.navigation-form', compact('navigation', 'parent'));
+        return view('konfigurasi.navigation-form', compact('navigation', 'parent', 'role'));
     }
 
     /**
@@ -60,9 +62,10 @@ class NavigationController extends Controller
      */
     public function edit(Navigation $navigation)
     {
-        $parent = Navigation::whereNull('main_menu')->get();
+        $role = Role::all();
+        $parent = Navigation::where('type_menu', '=', 'parent')->get();
 
-        return view('konfigurasi.navigation-form', compact('navigation', 'parent'));
+        return view('konfigurasi.navigation-form', compact('navigation', 'parent', 'role'));
     }
 
     /**
