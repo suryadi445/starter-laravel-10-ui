@@ -148,9 +148,6 @@
                     <img class="img-user" src="{{ asset('assets/images/avatar1.png') }}" alt="user"srcset="">
                 </a>
                 <ul class="dropdown-menu small">
-                    <!-- <li class="menu-header">
-                                <a class="dropdown-item" href="#">Notifikasi</a>
-                            </li> -->
                     <li class="menu-content ps-menu">
                         <a href="#">
                             <div class="description">
@@ -162,11 +159,15 @@
                                 <i class="ti-settings"></i> Setting
                             </div>
                         </a>
-                        <a href="#">
+                        <a href="{{ route('logout') }}"
+                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             <div class="description">
                                 <i class="ti-power-off"></i> Logout
                             </div>
                         </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
                     </li>
                 </ul>
             </div>

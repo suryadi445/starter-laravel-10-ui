@@ -36,6 +36,9 @@
 
     {{-- toast --}}
     @include('components.toast')
+
+    <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+
 </head>
 
 <body>
@@ -59,7 +62,6 @@
         <div class="overlay action-toggle"></div>
     </div>
 
-    <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.js') }}"></script>
     <script src="{{ asset('vendor/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
     <script src="{{ asset('assets/js/main.min.js') }}"></script>
