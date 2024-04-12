@@ -1,0 +1,59 @@
+body {
+    font-family: 'Manrope', sans-serif;
+    height: 100vh;
+    background-image: url("../../public/assets/images/book.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+p1 {
+    font-family: 'Manrope', sans-serif;
+    font-size: 25px;
+    color: green;
+    text-align: center;
+}
+
+a:link {
+    color: green;
+    background-color: transparent;
+    text-decoration: none;
+}
+
+a:hover {
+    color: blue;
+    background-color: transparent;
+    text-decoration: underline;
+}
+
+img {
+    height: 250px;
+    width: 250px;
+    border-radius: 50%;
+}
+
+.bg-glass {
+    background-color: hsla(0, 0%, 100%, 0.9) !important;
+    backdrop-filter: saturate(200%) blur(25px);
+}
+
+.custom-checkbox .custom-control-input:checked~.custom-control-label::before {
+    background-color: green !important;
+}
+
+.login {
+    display: flex;
+    justify-content: center;
+    /* Pusatkan secara horizontal */
+    align-items: center;
+    /* Pusatkan secara vertikal */
+    height: 100vh;
+    /* Set tinggi tetap */
+}
+
+/* Media query untuk tampilan smartphone */
+@media (max-width: 767px) {
+    .login {
+        overflow-y: scroll;
+        /* Aktifkan gulungan vertikal di smartphone */
+    }
+}
