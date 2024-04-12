@@ -48,34 +48,24 @@ class UserRolePermissionSeeder extends Seeder
             $role_manager = Role::create(['name' => 'manager', 'guard_name' => 'web']);
             $role_spv = Role::create(['name' => 'spv', 'guard_name' => 'web']);
 
-            Permission::create(['name' => 'read konfigurasi']);
+            $permissions = ['read', 'create', 'update', 'delete'];
 
-            Permission::create(['name' => 'read konfigurasi/roles']);
-            Permission::create(['name' => 'create konfigurasi/roles']);
-            Permission::create(['name' => 'update konfigurasi/roles']);
-            Permission::create(['name' => 'delete konfigurasi/roles']);
+            foreach ($permissions as $permission) {
+                $permissionKonfig =  $permission . ' ' . 'konfigurasi';
+                $permissionPerm =  $permission . ' ' . 'konfigurasi/permissions';
+                $permissionRole =  $permission . ' ' . 'konfigurasi/roles';
+                $permissionNav =  $permission . ' ' . 'konfigurasi/navigation';
 
-            Permission::create(['name' => 'read konfigurasi/navigation']);
-            Permission::create(['name' => 'create konfigurasi/navigation']);
-            Permission::create(['name' => 'update konfigurasi/navigation']);
-            Permission::create(['name' => 'delete konfigurasi/navigation']);
+                Permission::firstOrCreate(['name' => $permissionKonfig]);
+                Permission::firstOrCreate(['name' => $permissionPerm]);
+                Permission::firstOrCreate(['name' => $permissionRole]);
+                Permission::firstOrCreate(['name' => $permissionNav]);
 
-            Permission::create(['name' => 'read konfigurasi/permissions']);
-
-            // give permissions
-            $role_admin->givePermissionTo('read konfigurasi');
-
-            $role_admin->givePermissionTo('read konfigurasi/roles');
-            $role_admin->givePermissionTo('create konfigurasi/roles');
-            $role_admin->givePermissionTo('update konfigurasi/roles');
-            $role_admin->givePermissionTo('delete konfigurasi/roles');
-
-            $role_admin->givePermissionTo('read konfigurasi/navigation');
-            $role_admin->givePermissionTo('create konfigurasi/navigation');
-            $role_admin->givePermissionTo('update konfigurasi/navigation');
-            $role_admin->givePermissionTo('delete konfigurasi/navigation');
-
-            $role_admin->givePermissionTo('read konfigurasi/permissions');
+                $role_admin->givePermissionTo($permissionKonfig);
+                $role_admin->givePermissionTo($permissionPerm);
+                $role_admin->givePermissionTo($permissionRole);
+                $role_admin->givePermissionTo($permissionNav);
+            }
 
             $admin->assignRole('admin');
             $manager->assignRole('manager');
