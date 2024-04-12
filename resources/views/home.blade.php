@@ -110,20 +110,12 @@
             <div class="row same-height">
                 <div class="col-md-4">
                     <div class="card">
-                        <!-- <div class="float-label">
-                                                                        <h6>Sales</h6>
-                                                                        <h4>$1500</h4>
-                                                                    </div> -->
                         <div class="card-body">
                             <div id="apex-chart"></div>
                         </div>
                     </div>
                     <br>
                     <div class="card">
-                        <!-- <div class="float-label">
-                                                                        <h6>Profit</h6>
-                                                                        <h4>$500</h4>
-                                                                    </div> -->
                         <span></span>
 
                         <div class="card-body">
