@@ -73,13 +73,16 @@
             </div>
             <div class="col-md-6">
                 <div class="mb-3">
-                    <label for="role" class="form-label">Role User</label>
-                    <select class="form-select select2" name="role" id="role"
+                    <label for="role" class="form-label">Role</label>
+                    <select class="form-select select2" name="role[]" id="role"
                         aria-label="Default select example" multiple>
                         @foreach ($role as $item)
-                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                            <option value="{{ $item->id }}"
+                                {{ in_array($item->id, $navigation->roles->pluck('id')->toArray()) ? 'selected' : '' }}>
+                                {{ $item->name }}</option>
                         @endforeach
                     </select>
+                    <small class="text-danger" id="role-error"></small>
                 </div>
             </div>
         </div>

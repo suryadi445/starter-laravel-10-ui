@@ -1,3 +1,9 @@
 .swal2-popup .swal2-styled:focus {
     box-shadow: none !important;
 }
+
+div.dt-processing {
+    box-shadow: none !important;
+    border: none !important;
+    background-color: transparent !important;
+}

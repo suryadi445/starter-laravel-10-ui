@@ -2,22 +2,22 @@
 
 @section('content')
     <div class="main-content">
-        <div class="title">
-            Konfigurasi
-        </div>
+
         <div class="content-wrapper">
+            <x-breadcrumb />
+
             <div class="row same-height">
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
                             <div class="d-flex justify-content-between align-items-center">
                                 <h4 class="fw-bold">Navigation</h4>
-                                {{-- @can('create konfigurasi/navigation') --}}
-                                <button type="button" name="Add" class="btn btn-primary btn-sm" id="createMenu">
-                                    <i class="ti-plus"></i>
-                                    Tambah Data
-                                </button>
-                                {{-- @endcan --}}
+                                @can('create konfigurasi/navigation')
+                                    <button type="button" name="Add" class="btn btn-primary btn-sm" id="createMenu">
+                                        <i class="ti-plus"></i>
+                                        Tambah Data
+                                    </button>
+                                @endcan
                             </div>
                         </div>
                         <div class="card-body">
@@ -178,11 +178,12 @@
                     success: function(response) {
                         $('#modalAction').modal('hide');
                         table.draw();
-                        showToast('success', response.message);
+                        if (response.status == true) {
+                            showToast('success', response.message);
+                        } else {
+                            showToast('error', response.message);
+                        }
                         $('#save-modal').html('Save');
-                        setTimeout(() => {
-                            location.reload();
-                        }, 3000);
                     },
                     error: function(response) {
                         var errors = response.responseJSON.errors;

@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Navigation;
+use App\Models\Role;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -41,5 +42,18 @@ class NavigationSeeder extends Seeder
             'main_menu' => 1,
             'type_menu' => 'child',
         ]);
+
+        $adminRole = Role::firstOrCreate(['name' => 'admin']);
+
+        // Mendapatkan ID peran "admin"
+        $adminRoleId = $adminRole->id;
+
+        // Mendapatkan semua navigasi
+        $navigations = Navigation::all();
+
+        // Melampirkan peran "admin" ke setiap navigasi
+        foreach ($navigations as $navigation) {
+            $navigation->roles()->syncWithoutDetaching([$adminRoleId]);
+        }
     }
 }

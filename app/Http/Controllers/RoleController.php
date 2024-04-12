@@ -15,6 +15,7 @@ class RoleController extends Controller
 
     public function __construct(RoleService $roleService)
     {
+        $this->middleware('can:read konfigurasi/roles');
         $this->roleService = $roleService;
     }
 

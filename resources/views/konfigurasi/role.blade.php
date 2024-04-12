@@ -2,10 +2,9 @@
 
 @section('content')
     <div class="main-content">
-        <div class="title">
-            Konfigurasi
-        </div>
         <div class="content-wrapper">
+            <x-breadcrumb />
+
             <div class="row same-height">
                 <div class="col-md-12">
                     <div class="card">

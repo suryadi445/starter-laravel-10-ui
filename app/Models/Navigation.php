@@ -14,4 +14,9 @@ class Navigation extends Model
     {
         return $this->hasMany(Navigation::class, 'main_menu');
     }
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class, 'navigation_role');
+    }
 }

@@ -13,6 +13,7 @@ class NavigationController extends Controller
     protected $navigationService;
     public function __construct(NavigationService $navigationService)
     {
+        $this->middleware('can:read konfigurasi');
         $this->navigationService = $navigationService;
     }
     /**

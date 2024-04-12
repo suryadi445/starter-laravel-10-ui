@@ -27,6 +27,7 @@ class NavigationRequest extends FormRequest
             'sort' => 'integer|nullable',
             'icon' => 'string|max:100|nullable',
             'main_menu' => 'string|max:100|nullable',
+            'role' => 'required|max:100',
         ];
     }
 }
