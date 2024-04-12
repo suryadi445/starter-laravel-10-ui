@@ -126,10 +126,44 @@ class NavigationService
     {
         if (!empty($requestData['url'])) {
             // create permission
-            Permission::create(['name' => 'read ' . $requestData['url']]);
-            Permission::create(['name' => 'create ' . $requestData['url']]);
-            Permission::create(['name' => 'update ' . $requestData['url']]);
-            Permission::create(['name' => 'delete ' . $requestData['url']]);
+            $permissions = [
+                'read', 'create', 'update', 'delete'
+            ];
+
+            foreach ($permissions as $permission) {
+                Permission::create(['name' => $permission . ' ' . $requestData['url']]);
+            }
+
+            $roleIds = $requestData['role'];
+            foreach ($roleIds as $roleId) {
+                $role = Role::firstOrCreate(['id' => $roleId, 'guard_name' => 'web']);
+
+                foreach ($permissions as $permission) {
+                    $role->givePermissionTo($permission . ' ' . $requestData['url']);
+                }
+            }
+        }
+    }
+
+    public function editPermission($requestData)
+    {
+        if (!empty($requestData['url'])) {
+            $url = $requestData['url'];
+            $permissions = ['read', 'create', 'update', 'delete'];
+
+            // Loop through each role
+            $roleIds = $requestData['role'];
+            // foreach ($roleIds as $roleId) {
+            //     $role = Role::firstOrCreate(['id' => $roleId, 'guard_name' => 'web']);
+
+            //     // Loop through permissions
+            //     foreach ($permissions as $permission) {
+            //         $permissionName = $permission . ' ' . $url;
+
+            //         // Check if permission already exists for the role
+            // $existingPermission = $role->permissions()->where('name', $permissionName)->first();
+
+            //         dd($existingPermission);
 
             $roleid = $requestData['role'];
             $role = Role::firstOrCreate(['id' => $roleid, 'guard_name' => 'web']);
