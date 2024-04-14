@@ -1,41 +1,35 @@
 @extends('layouts.administrator.master')
 
 @section('content')
-    <div class="main-content">
-        <div class="content-wrapper">
-
-            <x-breadcrumb />
-
-            <div class="row same-height">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <h4 class="fw-bold">Permission</h4>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive text-left">
-                                <table class="table table-bordered dataTable">
-                                    <thead>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Role</th>
-                                            <th>Permission</th>
-                                            <th width="100px">Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="d-flex justify-content-between align-items-center">
+                <h4 class="fw-bold">{{ $title ?? '' }}</h4>
             </div>
         </div>
+    </div>
 
-        <x-modal id="modalAction" title="Modal title" size="xl modal-dialog-scrollable"></x-modal>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive text-left">
+                <table class="table table-bordered dataTable">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Role</th>
+                            <th>Permission</th>
+                            <th width="100px">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+    <x-modal id="modalAction" title="Modal title" size="xl modal-dialog-scrollable"></x-modal>
     </div>
 @endsection
 

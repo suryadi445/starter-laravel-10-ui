@@ -1,3 +1,5 @@
+<div class="shadow-header"></div>
+
 <header class="header-navbar fixed">
     <div class="header-wrapper">
         <div class="header-left">

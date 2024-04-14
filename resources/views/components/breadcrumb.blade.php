@@ -1,32 +1,24 @@
 @php
-    // Mendapatkan path dari URL saat ini
-    $url = $_SERVER['REQUEST_URI'];
+    $segments = explode('.', request()->route()->getName());
 
-    // Mendapatkan host dari URL saat ini
-    $host = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : '';
-
-    // Menghilangkan tanda "/" di akhir URL jika ada
-    $url = rtrim($url, '/');
-
-    // Mendapatkan path segments dari URL
-    $pathSegments = explode('/', trim($url, '/'));
-
+    // Kode untuk membuat breadcrumb
     echo '<nav aria-label="breadcrumb">';
     echo '<ol class="breadcrumb">';
-    echo '<li class="breadcrumb-item"><a href="' . url('/') . '">Home</a></li>';
-
-    $currentPath = '';
-
-    foreach ($pathSegments as $key => $segment) {
-        // Membangun URL dinamis dengan host yang disesuaikan
-        $currentPath .= '/' . $segment;
-        $fullUrl = $currentPath;
-        // Menghapus domain "home" dari URL
-        $fullUrl = str_replace('home/', '', $fullUrl);
-        // Membuat segmen breadcrumb dengan URL dinamis
-        echo '<li class="breadcrumb-item"><a href="' . $fullUrl . '">' . ucfirst($segment) . '</a></li>';
+    echo '<li class="breadcrumb-item"><a href="/home">Home</a></li>'; // Tambahkan link ke halaman utama di sini
+    $breadcrumbUrl = '/';
+    $segmentCount = count($segments);
+    foreach ($segments as $key => $segment) {
+        $breadcrumbUrl .= $segment . '/';
+        if ($key == $segmentCount - 1) {
+            if ($segment != 'home' && $segment != 'index') {
+                // Jika ini adalah segment terakhir, maka breadcrumb menjadi teks tanpa link
+                echo '<li class="breadcrumb-item active" aria-current="page">' . ucwords($segment) . '</li>';
+            }
+        } else {
+            // Jika ini bukan segment terakhir, maka tambahkan link
+            echo '<li class="breadcrumb-item"><a href="' . $breadcrumbUrl . '">' . ucwords($segment) . '</a></li>';
+        }
     }
-
     echo '</ol>';
     echo '</nav>';
 @endphp

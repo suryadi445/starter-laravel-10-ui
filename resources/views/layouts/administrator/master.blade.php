@@ -25,6 +25,8 @@
     <link rel="stylesheet" id="theme-color" href="{{ asset('assets/css/dark.min.css') }}">
     <link href="{{ asset('vendor/select2/css/select2.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('vendor/select2-bootstrap-5-theme/select2-bootstrap-5-theme.min.css') }}" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ asset('vendor/bootstrap-datepicker/css/bootstrap-datepicker.min.css') }}">
+
 
 
     <!-- CSS for this page only -->
@@ -43,23 +45,18 @@
 
 <body>
     <div id="app">
-        <div class="shadow-header"></div>
+
+        @include('layouts.administrator.notif-session')
+
         @include('layouts.administrator.header')
 
         @include('layouts.administrator.navigation')
 
-        @yield('content')
+        @include('layouts.administrator.content')
 
         @include('layouts.administrator.setting')
 
-        <footer>
-            Copyright © 2024 - {{ date('Y') }} &nbsp
-            <a href="https://github.com/suryadi445" target="_blank" class="ml-1">
-                Suryadi
-            </a>
-            <span> . All rights Reserved </span>
-        </footer>
-        <div class="overlay action-toggle"></div>
+        @include('layouts.administrator.footer')
     </div>
 
     <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.js') }}"></script>
@@ -68,6 +65,8 @@
     <script src="{{ asset('vendor/datatables.net/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('vendor/izitoast/js/iziToast.min.js') }}"></script>
     <script src="{{ asset('vendor/sweetalert2/sweetalert2.all.min.js') }}"></script>
+    <script src="{{ asset('vendor/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
+
 
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="https://cdn.datatables.net/2.0.3/js/dataTables.js"></script>
