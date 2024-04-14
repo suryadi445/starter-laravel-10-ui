@@ -40,7 +40,9 @@ class RoleService
     public function store(array $data)
     {
         try {
+            // create role
             $role = Role::create($data);
+
             return [
                 'success' => true,
                 'message' => 'Data berhasil disimpan.',
@@ -59,8 +61,10 @@ class RoleService
     public function update($id, $requestData)
     {
         try {
+            // check role
             $role = Role::findOrFail($id);
 
+            // update role
             $role->update([
                 'name' => $requestData['name'],
                 'guard_name' => $requestData['guard_name'],
@@ -81,7 +85,9 @@ class RoleService
     public function destroy(Role $role)
     {
         try {
+            // delete role
             $role->delete();
+
             return [
                 'success' => true,
                 'message' => 'Data berhasil dihapus.'

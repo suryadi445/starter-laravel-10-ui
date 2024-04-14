@@ -22,11 +22,12 @@ class PermissionController extends Controller
      */
     public function index(Request $request)
     {
+        $title = 'Permission';
         if ($request->ajax()) {
             return $this->permissionService->dataTable();
         }
 
-        return view('konfigurasi.permission');
+        return view('konfigurasi.permission', compact('title'));
     }
 
     /**

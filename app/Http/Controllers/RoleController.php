@@ -21,11 +21,12 @@ class RoleController extends Controller
 
     public function index(Request $request)
     {
+        $title = 'Role';
         if ($request->ajax()) {
             return $this->roleService->dataTable();
         }
 
-        return view('konfigurasi.role');
+        return view('konfigurasi.role', compact('title'));
     }
 
     /**

@@ -35,6 +35,7 @@ class PermissionService
 
     public function getRolePermission($roleId)
     {
+        // get role permission
         $rolePermissions = Role::findOrFail($roleId)->permissions()->pluck('id');
 
         $permissions = Permission::whereNotIn('id', $rolePermissions)->get();
@@ -45,10 +46,15 @@ class PermissionService
     public function destroy(Permission $permission, Role $role)
     {
         try {
+            // check permission
             if ($role->permissions()->where('id', $permission->id)->exists()) {
+
+                // remove permission
                 $role->permissions()->detach($permission->id);
 
+                // remove permission from cache
                 Artisan::call('permission:cache-reset');
+
                 return [
                     'status' => true,
                     'message' => 'Permission berhasil dihapus.'
@@ -73,9 +79,12 @@ class PermissionService
             $permissions = $requestData['permissions'];
             if (!empty($permissions)) {
                 $roleId = $requestData['roleId'];
+
+                // check role
                 $role = Role::findOrFail($roleId);
                 $success = true;
 
+                // add permission in loop
                 foreach ($permissions as $permission) {
                     $permissionName = Permission::find($permission)->name;
 
@@ -100,7 +109,6 @@ class PermissionService
                 }
             }
         } catch (\Exception $e) {
-            // Tangani kesalahan di sini
             return [
                 'status' => false,
                 'message' => 'Terjadi kesalahan saat menambahkan permission: ' . $e->getMessage()

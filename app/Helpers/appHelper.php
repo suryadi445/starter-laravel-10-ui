@@ -1,11 +1,19 @@
 <?php
 
 use App\Models\Navigation;
+use App\Models\Role;
 
 if (!function_exists('getMenus')) {
     function getMenus()
     {
         return Navigation::with('subMenus')->orderBy('sort', 'desc')->get();
+    }
+}
+
+if (!function_exists('getRoles')) {
+    function getRoles()
+    {
+        return Role::where('name', '!=', 'admin')->get();
     }
 }
 

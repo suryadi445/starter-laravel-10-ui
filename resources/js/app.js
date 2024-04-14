@@ -15,4 +15,12 @@ $(document).ready(function () {
             'transform': 'translate3d(-10px, 52px, 0px)'
         });
     })
+
+    $('.date').datepicker({
+        autoclose: true,
+        todayHighlight: true,
+        format: 'yyyy-mm-dd',
+    }).on('changeDate', function (e) {
+        console.log(e.target.value);
+    });
 })

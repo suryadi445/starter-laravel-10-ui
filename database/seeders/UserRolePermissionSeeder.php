@@ -20,60 +20,112 @@ class UserRolePermissionSeeder extends Seeder
         DB::beginTransaction();
 
         try {
-            $admin = User::create([
-                'name' => 'Admin',
-                'email' => 'suryadi.hhb@gmail.com',
-                'email_verified_at' => now(),
-                'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-                'remember_token' => Str::random(10),
-            ]);
+            $user = $this->createUser();
 
-            $manager = User::create([
-                'name' => 'Manager',
-                'email' => 'manager@gmail.com',
-                'email_verified_at' => now(),
-                'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-                'remember_token' => Str::random(10),
-            ]);
+            $this->createUserProfile();
 
-            $spv = User::create([
-                'name' => 'spv',
-                'email' => 'spv@gmail.com',
-                'email_verified_at' => now(),
-                'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-                'remember_token' => Str::random(10),
-            ]);
-
-            $role_admin = Role::create(['name' => 'admin', 'guard_name' => 'web']);
-            $role_manager = Role::create(['name' => 'manager', 'guard_name' => 'web']);
-            $role_spv = Role::create(['name' => 'spv', 'guard_name' => 'web']);
-
-            $permissions = ['read', 'create', 'update', 'delete'];
-
-            foreach ($permissions as $permission) {
-                $permissionKonfig =  $permission . ' ' . 'konfigurasi';
-                $permissionPerm =  $permission . ' ' . 'konfigurasi/permissions';
-                $permissionRole =  $permission . ' ' . 'konfigurasi/roles';
-                $permissionNav =  $permission . ' ' . 'konfigurasi/navigation';
-
-                Permission::firstOrCreate(['name' => $permissionKonfig]);
-                Permission::firstOrCreate(['name' => $permissionPerm]);
-                Permission::firstOrCreate(['name' => $permissionRole]);
-                Permission::firstOrCreate(['name' => $permissionNav]);
-
-                $role_admin->givePermissionTo($permissionKonfig);
-                $role_admin->givePermissionTo($permissionPerm);
-                $role_admin->givePermissionTo($permissionRole);
-                $role_admin->givePermissionTo($permissionNav);
-            }
-
-            $admin->assignRole('admin');
-            $manager->assignRole('manager');
-            $spv->assignRole('spv');
+            $this->createRole($user);
 
             DB::commit();
         } catch (\Throwable $th) {
             DB::rollBack();
+        }
+    }
+
+    public function createRole($user)
+    {
+        $role_admin = Role::create(['name' => 'admin', 'guard_name' => 'web']);
+        $role_manager = Role::create(['name' => 'manager', 'guard_name' => 'web']);
+        $role_spv = Role::create(['name' => 'spv', 'guard_name' => 'web']);
+
+        $permissions = ['read', 'create', 'update', 'delete'];
+
+        foreach ($permissions as $permission) {
+            $permissionKonfig =  $permission . ' ' . 'konfigurasi';
+            $permissionPerm =  $permission . ' ' . 'konfigurasi/permissions';
+            $permissionRole =  $permission . ' ' . 'konfigurasi/roles';
+            $permissionNav =  $permission . ' ' . 'konfigurasi/navigation';
+
+            Permission::firstOrCreate(['name' => $permissionKonfig]);
+            Permission::firstOrCreate(['name' => $permissionPerm]);
+            Permission::firstOrCreate(['name' => $permissionRole]);
+            Permission::firstOrCreate(['name' => $permissionNav]);
+
+            $role_admin->givePermissionTo($permissionKonfig);
+            $role_admin->givePermissionTo($permissionPerm);
+            $role_admin->givePermissionTo($permissionRole);
+            $role_admin->givePermissionTo($permissionNav);
+        }
+
+        $user['admin']->assignRole('admin');
+        $user['manager']->assignRole('manager');
+        $user['spv']->assignRole('spv');
+    }
+
+    public function createUser()
+    {
+        $result['admin'] = User::create([
+            'name' => 'Admin Suryadi',
+            'email' => 'suryadi.hhb@gmail.com',
+            'email_verified_at' => now(),
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'remember_token' => Str::random(10),
+        ]);
+
+        $result['manager'] = User::create([
+            'name' => 'Manager',
+            'email' => 'manager@gmail.com',
+            'email_verified_at' => now(),
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'remember_token' => Str::random(10),
+        ]);
+
+        $result['spv'] = User::create([
+            'name' => 'spv',
+            'email' => 'spv@gmail.com',
+            'email_verified_at' => now(),
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'remember_token' => Str::random(10),
+        ]);
+
+        return $result;
+    }
+
+    public function createUserProfile()
+    {
+        // Buat profil untuk Admin
+        $admin = User::where('email', 'suryadi.hhb@gmail.com')->first();
+        if ($admin) {
+            $admin->profile()->create([
+                'no_hp' => '089678468651',
+                'tempat_lahir' => 'Jakarta',
+                'tanggal_lahir' => '1991-04-05',
+                'jenis_kelamin' => 'laki-laki',
+                'alamat' => 'Jl. H. Gadung no.20, Pondok Ranji, Ciputat Timur, Tangerang Selatan, Banten',
+            ]);
+        }
+
+        // Buat profil untuk Manager
+        $manager = User::where('email', 'manager@gmail.com')->first();
+        if ($manager) {
+            $manager->profile()->create([
+                'no_hp' => '08123456799',
+                'tempat_lahir' => 'Bogor',
+                'tanggal_lahir' => '1994-01-01',
+                'jenis_kelamin' => 'laki-laki',
+                'alamat' => 'Jalan Bogor Raya No. 19',
+            ]);
+        }
+
+        $spv = User::where('email', 'spv@gmail.com')->first();
+        if ($spv) {
+            $spv->profile()->create([
+                'no_hp' => '08123456789',
+                'tempat_lahir' => 'Bandung',
+                'tanggal_lahir' => '1990-11-21',
+                'jenis_kelamin' => 'laki-laki',
+                'alamat' => 'Jalan Bandung Utara No. 123',
+            ]);
         }
     }
 }

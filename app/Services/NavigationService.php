@@ -71,7 +71,6 @@ class NavigationService
             // clear cache
             Artisan::call('permission:cache-reset');
 
-
             return [
                 'status' => true,
                 'message' => 'Data berhasil disimpan.',
@@ -116,7 +115,6 @@ class NavigationService
             // clear cache
             Artisan::call('permission:cache-reset');
 
-
             return [
                 'status' => true,
                 'message' => 'Data berhasil diperbarui.'
@@ -132,6 +130,7 @@ class NavigationService
     public function destroy(Navigation $navigation)
     {
         try {
+            // type permission
             $permissions = ['read', 'create', 'update', 'delete'];
 
             foreach ($permissions as $permission) {
@@ -166,10 +165,8 @@ class NavigationService
     {
 
         if (!empty($requestData['url'])) {
-            // tipe permission
-            $permissions = [
-                'read', 'create', 'update', 'delete'
-            ];
+            // type permission
+            $permissions = ['read', 'create', 'update', 'delete'];
 
             foreach ($permissions as $permission) {
                 // create permission

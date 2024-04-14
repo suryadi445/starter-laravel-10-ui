@@ -21,11 +21,12 @@ class NavigationController extends Controller
      */
     public function index(Request $request)
     {
+        $title = 'Navigation';
         if ($request->ajax()) {
             return $this->navigationService->dataTable();
         }
 
-        return view('konfigurasi.navigation');
+        return view('konfigurasi.navigation', compact('title'));
     }
 
     /**
