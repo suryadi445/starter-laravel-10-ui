@@ -36,7 +36,7 @@
                     $fullUrl = url('/') . '/' . $segment;
                 }
 
-                echo '<li class="breadcrumb-item">' . ucfirst($segment) . '</li>';
+                echo '<li class="breadcrumb-item active">' . ucfirst($segment) . '</li>';
             }
 
             $currentSegment = $segment;

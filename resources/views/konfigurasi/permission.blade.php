@@ -30,7 +30,6 @@
 
 
     <x-modal id="modalAction" title="Modal title" size="xl modal-dialog-scrollable"></x-modal>
-    </div>
 @endsection
 
 @push('js')
@@ -163,6 +162,7 @@
             $('#save-modal').click(function(e) {
                 e.preventDefault();
                 $(this).html('Sending..');
+                $(this).addClass('disabled');
 
                 $.ajax({
                     data: $('#form-modalAction').serialize(),
@@ -178,6 +178,7 @@
                             showToast('error', response.message);
                         }
                         $('#save-modal').html('Save');
+                        $('#save-modal').removeClass('disabled');
                     },
                     error: function(response) {
                         if (response.responseJSON && response.responseJSON.errors) {
@@ -190,6 +191,7 @@
                         }
 
                         $('#save-modal').html('Save');
+                        $('#save-modal').removeClass('disabled');
                     }
                 });
             });

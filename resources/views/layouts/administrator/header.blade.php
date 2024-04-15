@@ -145,20 +145,15 @@
                 <a href="#" class="user-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
                     <div class="label">
                         <span></span>
-                        <div>Admin</div>
+                        <div>{{ Auth::user()->name ?? 'User' }}</div>
                     </div>
                     <img class="img-user" src="{{ asset('assets/images/avatar1.png') }}" alt="user"srcset="">
                 </a>
                 <ul class="dropdown-menu small">
                     <li class="menu-content ps-menu">
-                        <a href="#">
+                        <a href="{{ route('users.edit', Auth::user()->id) }}">
                             <div class="description">
                                 <i class="ti-user"></i> Profile
-                            </div>
-                        </a>
-                        <a href="#">
-                            <div class="description">
-                                <i class="ti-settings"></i> Setting
                             </div>
                         </a>
                         <a href="{{ route('logout') }}"

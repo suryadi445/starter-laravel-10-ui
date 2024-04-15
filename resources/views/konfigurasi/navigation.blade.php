@@ -40,7 +40,6 @@
     </div>
 
     <x-modal id="modalAction" title="Modal title" size="lg"></x-modal>
-    </div>
 @endsection
 
 @push('js')
@@ -161,6 +160,7 @@
             $('#save-modal').click(function(e) {
                 e.preventDefault();
                 $(this).html('Sending..');
+                $(this).addClass('disabled');
                 var id = $('#navigationId').val();
 
                 $.ajax({
@@ -177,6 +177,7 @@
                             showToast('error', response.message);
                         }
                         $('#save-modal').html('Save');
+                        $('#save-modal').removeClass('disabled');
                     },
                     error: function(response) {
                         var errors = response.responseJSON.errors;
@@ -188,6 +189,7 @@
                             });
                         }
                         $('#save-modal').html('Save');
+                        $('#save-modal').removeClass('disabled');
                     }
                 });
             });
