@@ -13,7 +13,7 @@ class RoleService
 {
     public function dataTable()
     {
-        $data = Role::select('*');
+        $data = Role::select('*')->where('name', '!=', 'admin');
         return DataTables::of($data)
             ->addIndexColumn()
             ->editColumn('created_at', function ($row) {

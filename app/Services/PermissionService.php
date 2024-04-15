@@ -16,7 +16,7 @@ class PermissionService
 
     public function dataTable()
     {
-        $roles = Role::with('permissions')->get();
+        $roles = Role::where('name', '!=', 'admin')->with('permissions')->get();
 
         return DataTables::of($roles)
             ->addColumn('permissions', function ($role) {

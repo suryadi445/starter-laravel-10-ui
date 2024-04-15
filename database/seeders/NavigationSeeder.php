@@ -42,6 +42,13 @@ class NavigationSeeder extends Seeder
             'main_menu' => 1,
             'type_menu' => 'child',
         ]);
+        Navigation::create([
+            'name' => 'Users',
+            'url' => 'users',
+            'icon' => 'fas fa-users',
+            'main_menu' => null,
+            'type_menu' => 'single',
+        ]);
 
         $adminRole = Role::firstOrCreate(['name' => 'admin']);
 

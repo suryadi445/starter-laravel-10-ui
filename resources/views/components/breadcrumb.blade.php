@@ -1,24 +1,49 @@
 @php
-    $segments = explode('.', request()->route()->getName());
+    $url = $_SERVER['REQUEST_URI'];
+    $host = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : '';
+    $url = strtok($url, '?');
 
-    // Kode untuk membuat breadcrumb
+    $pathSegments = explode('/', trim($url, '/'));
+
     echo '<nav aria-label="breadcrumb">';
     echo '<ol class="breadcrumb">';
-    echo '<li class="breadcrumb-item"><a href="/home">Home</a></li>'; // Tambahkan link ke halaman utama di sini
-    $breadcrumbUrl = '/';
-    $segmentCount = count($segments);
-    foreach ($segments as $key => $segment) {
-        $breadcrumbUrl .= $segment . '/';
-        if ($key == $segmentCount - 1) {
-            if ($segment != 'home' && $segment != 'index') {
-                // Jika ini adalah segment terakhir, maka breadcrumb menjadi teks tanpa link
-                echo '<li class="breadcrumb-item active" aria-current="page">' . ucwords($segment) . '</li>';
+
+    $currentSegment = '';
+    $currentPath = '';
+
+    if ($pathSegments[0] != '') {
+        echo '<li class="breadcrumb-item"><a href="' . url('/') . '">Home</a></li>';
+    }
+
+    foreach ($pathSegments as $key => $segment) {
+        if ($segment == 'home' || $segment == 'dashboard') {
+            continue;
+        }
+
+        if (!is_numeric($segment)) {
+            $currentPath .= '/' . $segment;
+
+            if ($currentSegment == $segment) {
+                continue;
             }
-        } else {
-            // Jika ini bukan segment terakhir, maka tambahkan link
-            echo '<li class="breadcrumb-item"><a href="' . $breadcrumbUrl . '">' . ucwords($segment) . '</a></li>';
+
+            if ($key == count($pathSegments) - 1) {
+                echo '<li class="breadcrumb-item active">' . ucfirst($segment) . '</li>';
+            } else {
+                if ($key > 0) {
+                    $fullUrl = url('/') . '/' . $segment;
+                } else {
+                    $fullUrl = url('/') . '/' . $segment;
+                }
+
+                echo '<li class="breadcrumb-item">' . ucfirst($segment) . '</li>';
+            }
+
+            $currentSegment = $segment;
         }
     }
+
     echo '</ol>';
     echo '</nav>';
+
 @endphp

@@ -9,7 +9,7 @@
         <ul>
             <li class="{{ request()->routeIs('home') ? 'active' : '' }}">
                 <a href="{{ route('home') }}" class="link">
-                    <i class="ti-home"></i>
+                    <i class="fa-solid fa-home"></i>
                     <span>Dashboard</span>
                 </a>
             </li>

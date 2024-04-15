@@ -12,6 +12,7 @@ class UserController extends Controller
 
     public function __construct(UserService $userService)
     {
+        $this->middleware('can:read users');
         $this->userService = $userService;
     }
 
@@ -20,11 +21,11 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
+
         $title = 'Users';
         if ($request->ajax()) {
             return $this->userService->datatable();
         }
-
 
         return view('users.index', compact('title'));
     }

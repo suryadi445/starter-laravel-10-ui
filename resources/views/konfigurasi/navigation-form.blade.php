@@ -60,6 +60,7 @@
                     <label for="icon" class="form-label">Icon</label>
                     <input type="text" placeholder="Input Here" name="icon" class="form-control" id="icon"
                         value="{{ $navigation->icon }}">
+                    <small class="text-muted">Font awesome 6.5.2</small>
                     <small class="text-danger" id="icon-error"></small>
                 </div>
             </div>
