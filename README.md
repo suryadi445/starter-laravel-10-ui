@@ -1,3 +1,90 @@
+# Laravel 10 And Bootstrap 5 Starter Kit 
+
+This is a starter kit for Laravel projects, featuring laravel UI for backend framework, Bootstrap 5 as the front-end framework, DataTable Yajra for enhanced data tables, and Laravel Spatie for role and permission management. 
+The project also includes a dynamic menu generated from the database.
+
+## Features
+
+- Laravel framework for robust back-end development.
+- Bootstrap 5 for responsive and modern UI design.
+- DataTable Yajra for advanced data table functionalities.
+- Laravel Spatie for efficient role and permission management.
+- Dynamic menu generated from the database, providing flexibility in navigation.
+
+## Requirements
+
+- PHP >= 7.4
+- Composer
+- Node.js
+- NPM or Yarn
+- MySQL or any other supported database system
+
+## Installation
+
+1. git clone https://github.com/suryadi445/starter-laravel-10-ui.git
+2. cd starter-laravel-10-ui
+3. composer install
+4. npm install
+5. cp .env.example .env
+6. php artisan key:generate
+7. php artisan migrate
+8. php artisan db:seed
+9. npm run dev
+10. php artisan serve
+11. enjoy it http://127.0.0.1:8000/
+
+## Login Page
+![image](https://github.com/suryadi445/starter-laravel-10-ui/assets/68637256/c260e235-26ed-492d-89e4-a02a47b1aa7c)
+
+
+## Register Page 
+![image](https://github.com/suryadi445/starter-laravel-10-ui/assets/68637256/16d566a3-45c7-4066-9f2f-7ebb44f453a6)
+
+## Dashboard Page
+![image](https://github.com/suryadi445/starter-laravel-10-ui/assets/68637256/ead594a9-1836-4fe0-98d1-38f02353d23b)
+
+## Role Page 
+![image](https://github.com/suryadi445/starter-laravel-10-ui/assets/68637256/45fe1acf-01b7-4ac7-8c05-63d07ebe6781)
+
+## Permission Page
+![image](https://github.com/suryadi445/starter-laravel-10-ui/assets/68637256/cf28afb7-6595-4a5d-8188-b318f32b75c9)
+
+## Menu Page
+![image](https://github.com/suryadi445/starter-laravel-10-ui/assets/68637256/26f66367-313a-444f-b2c0-522d11f230e8)
+
+## User Page
+![image](https://github.com/suryadi445/starter-laravel-10-ui/assets/68637256/6beddf3d-748e-4e39-b060-fa01ac50430a)
+
+
+
+## Special Thanks to 
+- [Laravel](https://laravel.com/docs/10.x)
+- [Laravel UI](https://github.com/laravel/ui)
+- [Laravel Spatie](https://spatie.be/docs/laravel-permission/v6/introduction)
+- [Bootstrap](https://getbootstrap.com/docs/5.3/getting-started/introduction/)
+- [ArFa - Admin Dashboard](https://github.com/abdulisabdul/arfa)
+- [Yajra Datatable](https://yajrabox.com/docs/laravel-datatables/10.0)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
