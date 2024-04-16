@@ -33,6 +33,19 @@ The project also includes a dynamic menu generated from the database.
 10. php artisan serve
 11. enjoy it http://127.0.0.1:8000/
 
+## Access Admin Page
+1. Admin :
+Username : suryadi.hhb@gmail.com
+Password : password
+
+2. Manager : 
+Username : manager@gmail.com
+Password : password
+
+3. Supervisor
+Username : spv@gmail.com
+Password : password
+
 ## Login Page
 ![image](https://github.com/suryadi445/starter-laravel-10-ui/assets/68637256/c260e235-26ed-492d-89e4-a02a47b1aa7c)
 
