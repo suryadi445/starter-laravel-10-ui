@@ -13,7 +13,7 @@ The project also includes a dynamic menu generated from the database.
 
 ## Requirements
 
-- PHP >= 7.4
+- PHP >= 8.1
 - Composer
 - Node.js
 - NPM or Yarn
