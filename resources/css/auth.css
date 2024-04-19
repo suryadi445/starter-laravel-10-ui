@@ -53,6 +53,7 @@ img {
 /* Media query untuk tampilan smartphone */
 @media (max-width: 767px) {
     .login {
+        padding-top: 25%;
         overflow-y: scroll;
         /* Aktifkan gulungan vertikal di smartphone */
     }
