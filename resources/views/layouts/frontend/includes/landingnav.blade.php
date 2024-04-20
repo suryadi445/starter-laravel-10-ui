@@ -59,10 +59,13 @@
                         Testimonials
                     </div>
                 </a>
-                <a href="{{ route('logout') }}">
+                <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     <div class="menu-item">
                         Logout
                     </div>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
                 </a>
             @else
                 <a href="{{ route('login') }}">
