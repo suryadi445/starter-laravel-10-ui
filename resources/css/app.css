@@ -7,3 +7,11 @@ div.dt-processing {
     border: none !important;
     background-color: transparent !important;
 }
+
+input[readonly] {
+    background-color: #f2f2f2;
+}
+
+input[readonly]:focus {
+    background-color: #f2f2f2;
+}

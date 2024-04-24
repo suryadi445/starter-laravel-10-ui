@@ -5,7 +5,7 @@
         <div class="col-md-12">
             <div class="d-flex justify-content-between align-items-center">
                 <h4 class="fw-bold">{{ $title ?? '' }}</h4>
-                @can('create konfigurasi/navigation')
+                @can('create navigation')
                     <button type="button" name="Add" class="btn btn-primary btn-sm" id="createMenu">
                         <i class="ti-plus"></i>
                         Tambah Data
@@ -48,6 +48,7 @@
             // ajax table
             var table = $('.dataTable').DataTable({
                 processing: true,
+                scrollX: true,
                 serverSide: true,
                 ajax: "{{ route('navigation.index') }}",
                 columnDefs: [{
@@ -137,7 +138,7 @@
                     if (result.isConfirmed) {
                         $.ajax({
                             type: "DELETE",
-                            url: "{{ url('konfigurasi/navigation') }}/" + roleId,
+                            url: "{{ url('navigation') }}/" + roleId,
                             headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                             },
@@ -165,7 +166,7 @@
 
                 $.ajax({
                     data: $('#form-modalAction').serialize(),
-                    url: `{{ url('konfigurasi/navigation/') }}/${id}`,
+                    url: `{{ url('navigation/') }}/${id}`,
                     type: "POST",
                     dataType: 'json',
                     success: function(response) {
@@ -201,17 +202,23 @@
                 if (value == 'child') {
                     $('#main_menu').removeClass('d-none')
                     $('#icon').prop('readonly', true);
-                    $('#icon').addClass('bg-light');
+                    $('#url').prop('readonly', false)
                     $('#icon').val('');
                 } else if (value == 'parent') {
                     $('#icon').prop('readonly', false)
-                    $('#icon').removeClass('bg-light');
+                    $('#url').prop('readonly', true)
                     $('#main_menu').addClass('d-none')
                 } else {
                     $('#icon').prop('readonly', false)
-                    $('#icon').removeClass('bg-light');
+                    $('#url').prop('readonly', false)
                     $('#main_menu').addClass('d-none')
                 }
+            })
+
+            $(document).on('input', '#name', function() {
+                let value = $(this).val()
+
+                $('#url').val('#');
             })
         });
     </script>

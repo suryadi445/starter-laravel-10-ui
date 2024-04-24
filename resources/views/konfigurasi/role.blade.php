@@ -5,7 +5,7 @@
         <div class="col-md-12">
             <div class="d-flex justify-content-between align-items-center">
                 <h4 class="fw-bold">{{ $title ?? '' }}</h4>
-                @can('create konfigurasi/roles')
+                @can('create roles')
                     <button type="button" name="Add" class="btn btn-primary btn-sm" id="createRole">
                         <i class="ti-plus"></i>
                         Tambah Data
@@ -45,6 +45,7 @@
             var table = $('.dataTable').DataTable({
                 processing: true,
                 serverSide: true,
+                scrollX: true,
                 ajax: "{{ route('roles.index') }}",
                 columnDefs: [{
                     "targets": "_all",
@@ -117,7 +118,7 @@
                     if (result.isConfirmed) {
                         $.ajax({
                             type: "DELETE",
-                            url: "{{ url('konfigurasi/roles') }}/" + roleId,
+                            url: "{{ url('roles') }}/" + roleId,
                             headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                             },
@@ -145,7 +146,7 @@
 
                 $.ajax({
                     data: $('#form-modalAction').serialize(),
-                    url: `{{ url('konfigurasi/roles/') }}/${id}`,
+                    url: `{{ url('roles/') }}/${id}`,
                     type: "POST",
                     dataType: 'json',
                     success: function(response) {

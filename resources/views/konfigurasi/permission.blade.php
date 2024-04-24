@@ -39,6 +39,7 @@
             var table = $('.dataTable').DataTable({
                 processing: true,
                 serverSide: true,
+                scrollX: true,
                 ajax: "{{ route('permissions.index') }}",
                 columnDefs: [{
                     "targets": "_all",
@@ -101,7 +102,7 @@
                     if (result.isConfirmed) {
                         $.ajax({
                             type: "DELETE",
-                            url: "{{ url('konfigurasi/permissions') }}/" + permissionId,
+                            url: "{{ url('permissions') }}/" + permissionId,
                             headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                             },
