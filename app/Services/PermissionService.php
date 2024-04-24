@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Permission;
 use App\Models\Role;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 
 class PermissionService
@@ -46,14 +47,19 @@ class PermissionService
     public function destroy(Permission $permission, Role $role)
     {
         try {
+
             // check permission
             if ($role->permissions()->where('id', $permission->id)->exists()) {
+
+                DB::beginTransaction();
 
                 // remove permission
                 $role->permissions()->detach($permission->id);
 
                 // remove permission from cache
                 Artisan::call('permission:cache-reset');
+
+                DB::commit();
 
                 return [
                     'status' => true,
@@ -66,6 +72,9 @@ class PermissionService
                 ];
             }
         } catch (\Throwable $e) {
+
+            DB::rollBack();
+
             return [
                 'status' => false,
                 'message' => 'Gagal menghapus data: ' . $e->getMessage()
@@ -76,8 +85,12 @@ class PermissionService
     public function createPermission($requestData)
     {
         try {
+
+
             $permissions = $requestData['permissions'];
             if (!empty($permissions)) {
+                DB::beginTransaction();
+
                 $roleId = $requestData['roleId'];
 
                 // check role
@@ -96,6 +109,8 @@ class PermissionService
                     }
                 }
 
+                DB::commit();
+
                 if ($success) {
                     return [
                         'status' => true,
@@ -109,6 +124,9 @@ class PermissionService
                 }
             }
         } catch (\Exception $e) {
+
+            DB::rollBack();
+
             return [
                 'status' => false,
                 'message' => 'Terjadi kesalahan saat menambahkan permission: ' . $e->getMessage()

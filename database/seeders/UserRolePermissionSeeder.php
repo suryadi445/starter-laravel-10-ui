@@ -42,31 +42,31 @@ class UserRolePermissionSeeder extends Seeder
 
         foreach ($permissions as $permission) {
             $permissionKonfig =  $permission . ' ' . 'konfigurasi';
-            $permissionPerm =  $permission . ' ' . 'konfigurasi/permissions';
-            $permissionRole =  $permission . ' ' . 'konfigurasi/roles';
-            $permissionNav =  $permission . ' ' . 'konfigurasi/navigation';
+            $permissionPerm =  $permission . ' ' . 'permissions';
+            $permissionRole =  $permission . ' ' . 'roles';
+            $permissionNav =  $permission . ' ' . 'navigation';
             $permissionUser =  $permission . ' ' . 'users';
-            $permissionUserCreate =  $permission . ' ' . 'users/create';
-            $permissionUserUpdate =  $permission . ' ' . 'users/update';
-            $permissionUserDelete =  $permission . ' ' . 'users/delete';
+            // $permissionUserCreate =  $permission . ' ' . 'users/create';
+            // $permissionUserUpdate =  $permission . ' ' . 'users/update';
+            // $permissionUserDelete =  $permission . ' ' . 'users/delete';
 
             Permission::firstOrCreate(['name' => $permissionKonfig]);
             Permission::firstOrCreate(['name' => $permissionPerm]);
             Permission::firstOrCreate(['name' => $permissionRole]);
             Permission::firstOrCreate(['name' => $permissionNav]);
             Permission::firstOrCreate(['name' => $permissionUser]);
-            Permission::firstOrCreate(['name' => $permissionUserCreate]);
-            Permission::firstOrCreate(['name' => $permissionUserUpdate]);
-            Permission::firstOrCreate(['name' => $permissionUserDelete]);
+            // Permission::firstOrCreate(['name' => $permissionUserCreate]);
+            // Permission::firstOrCreate(['name' => $permissionUserUpdate]);
+            // Permission::firstOrCreate(['name' => $permissionUserDelete]);
 
             $role_admin->givePermissionTo($permissionKonfig);
             $role_admin->givePermissionTo($permissionPerm);
             $role_admin->givePermissionTo($permissionRole);
             $role_admin->givePermissionTo($permissionNav);
             $role_admin->givePermissionTo($permissionUser);
-            $role_admin->givePermissionTo($permissionUserCreate);
-            $role_admin->givePermissionTo($permissionUserUpdate);
-            $role_admin->givePermissionTo($permissionUserDelete);
+            // $role_admin->givePermissionTo($permissionUserCreate);
+            // $role_admin->givePermissionTo($permissionUserUpdate);
+            // $role_admin->givePermissionTo($permissionUserDelete);
         }
 
         $user['admin']->assignRole('admin');

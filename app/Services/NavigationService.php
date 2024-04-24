@@ -10,6 +10,7 @@ use Exception;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\DB;
 
 class NavigationService
 {
@@ -40,10 +41,10 @@ class NavigationService
             })
             ->addColumn('action', function ($row) {
                 $actionBtn = '';
-                if (Gate::allows('update konfigurasi/roles')) {
+                if (Gate::allows('update roles')) {
                     $actionBtn .= '<button type="button" name="edit" data-id="' . $row->id . '" class="editRole btn btn-warning btn-sm me-2"><i class="ti-pencil-alt"></i></button>';
                 }
-                if (Gate::allows('delete konfigurasi/roles')) {
+                if (Gate::allows('delete roles')) {
                     $actionBtn .= '<button type="button" name="delete" data-id="' . $row->id . '" class="deleteRole btn btn-danger btn-sm"><i class="ti-trash"></i></button>';
                 }
                 return '<div class="d-flex">' . $actionBtn . '</div>';
@@ -59,6 +60,8 @@ class NavigationService
         }
 
         try {
+            DB::beginTransaction();
+
             // create permission
             $this->createPermission($requestData);
 
@@ -71,12 +74,17 @@ class NavigationService
             // clear cache
             Artisan::call('permission:cache-reset');
 
+            DB::commit();
+
+
             return [
                 'status' => true,
                 'message' => 'Data berhasil disimpan.',
                 'role' => $navigation
             ];
         } catch (\Exception $e) {
+
+            DB::rollBack();
 
             return [
                 'status' => false,
@@ -92,34 +100,32 @@ class NavigationService
         }
 
         try {
+            DB::beginTransaction();
 
-            // check navigasi menu
             $navigation = Navigation::findOrFail($id);
 
-            // update menu navigasi
-            $navigation->update([
-                'name' => $requestData['name'],
-                'url' => $requestData['url'],
-                'icon' => $requestData['icon'],
-                'sort' => $requestData['sort'],
-                'main_menu' => $requestData['main_menu'],
-                'type_menu' => $requestData['type_menu'],
-            ]);
-
-            // synchronize role
+            // update navigation role
             $navigation->roles()->sync($requestData['role']);
 
-            // edit permission
-            $this->editPermission($requestData);
+            // update permission
+            $this->editPermission($requestData, $navigation);
+
+            // update menu
+            $navigation->update($requestData);
 
             // clear cache
             Artisan::call('permission:cache-reset');
+
+            DB::commit();
 
             return [
                 'status' => true,
                 'message' => 'Data berhasil diperbarui.'
             ];
         } catch (Exception $e) {
+
+            DB::rollBack();
+
             return [
                 'status' => false,
                 'message' => $e->getMessage(),
@@ -130,11 +136,14 @@ class NavigationService
     public function destroy(Navigation $navigation)
     {
         try {
+            DB::beginTransaction();
             // type permission
             $permissions = ['read', 'create', 'update', 'delete'];
 
             foreach ($permissions as $permission) {
-                $permissionName = $permission . ' ' . $navigation->name;
+                $url = $navigation->url;
+
+                $permissionName = $permission . ' ' . $url;
 
                 // delete permission
                 Permission::where('name', $permissionName)->delete();
@@ -149,11 +158,16 @@ class NavigationService
             // clear cache
             Artisan::call('permission:cache-reset');
 
+            DB::commit();
+
             return [
                 'status' => true,
                 'message' => 'Data berhasil dihapus.'
             ];
         } catch (\Exception $e) {
+
+            DB::rollBack();
+
             return [
                 'status' => false,
                 'message' => 'Gagal menghapus data: ' . $e->getMessage()
@@ -163,14 +177,13 @@ class NavigationService
 
     public function createPermission($requestData)
     {
-
         if (!empty($requestData['url'])) {
-            // type permission
+
             $permissions = ['read', 'create', 'update', 'delete'];
+            $url = $requestData['url'];
 
             foreach ($permissions as $permission) {
-                // create permission
-                Permission::create(['name' => $permission . ' ' . $requestData['url']]);
+                Permission::create(['name' => $permission . ' ' . $url]);
             }
 
             $roleIds = $requestData['role'];
@@ -178,50 +191,36 @@ class NavigationService
                 $role = Role::firstOrCreate(['id' => $roleId, 'guard_name' => 'web']);
 
                 foreach ($permissions as $permission) {
-                    // tambah permission untuk role
                     $role->givePermissionTo($permission . ' ' . $requestData['url']);
                 }
             }
         }
     }
 
-    public function editPermission($requestData)
+    protected function editPermission($requestData, $navigation)
     {
-        if (!empty($requestData['url'])) {
-            $url = $requestData['url'];
+        $roleIds            = $requestData['role'];
+        $url                = $requestData['url'];
+        $oldUrl             = $navigation->url;
+        $allRoles           = Role::whereIn('id', $roleIds)->get();
+        $newPermissions     = ["read", "create", "update", "delete"];
 
-            // type permission
-            $permissions = ['read', 'create', 'update', 'delete'];
+        $permissions = [];
+        foreach ($newPermissions as $permission) {
 
-            $roleIds = $requestData['role'];
-            foreach ($roleIds as $roleId) {
-                $role = Role::firstOrCreate(['id' => $roleId, 'guard_name' => 'web']);
+            $oldPermissions = Permission::where('name', $permission . " " . $oldUrl)->first();
 
-                // Loop tipe permissions
-                foreach ($permissions as $permission) {
-                    // gabungkan permission dan url
-                    $permissionName = $permission . ' ' . $url;
-
-                    // cek permisson sudah ada untuk role nya
-                    $existingPermission = $role->permissions()->where('name', $permissionName)->first();
-
-                    if (!$existingPermission) {
-                        // jika permission belum ada, tambahkan permission
-                        $role->givePermissionTo($permissionName);
-                    }
-                }
+            if ($oldPermissions) {
+                $oldPermissions->delete();
             }
 
-            $allRoles = Role::all();
+            $newCreatePermissions   = $permission . ' ' . $url;
+            $permissions[]          = $newCreatePermissions;
+
+            Permission::create(['name' => $newCreatePermissions]);
+
             foreach ($allRoles as $role) {
-                // cek apakah peran tidak termasuk dalam daftar peran yang dipilih
-                if (!in_array($role->id, $roleIds)) {
-                    foreach ($permissions as $permission) {
-                        $permissionName = $permission . ' ' . $url;
-                        // Hapus permissions dari roles yang tidak dipilih
-                        $role->revokePermissionTo($permissionName);
-                    }
-                }
+                $role->givePermissionTo($permissions);
             }
         }
     }

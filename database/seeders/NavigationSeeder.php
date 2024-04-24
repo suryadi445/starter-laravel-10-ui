@@ -23,21 +23,21 @@ class NavigationSeeder extends Seeder
         ]);
         Navigation::create([
             'name' => 'Roles',
-            'url' => 'konfigurasi/roles',
+            'url' => 'roles',
             'icon' => '',
             'main_menu' => 1,
             'type_menu' => 'child',
         ]);
         Navigation::create([
             'name' => 'Permissions',
-            'url' => 'konfigurasi/permissions',
+            'url' => 'permissions',
             'icon' => '',
             'main_menu' => 1,
             'type_menu' => 'child',
         ]);
         Navigation::create([
-            'name' => 'Menu',
-            'url' => 'konfigurasi/navigation',
+            'name' => 'Navigation',
+            'url' => 'navigation',
             'icon' => '',
             'main_menu' => 1,
             'type_menu' => 'child',
