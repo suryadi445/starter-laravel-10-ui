@@ -20,16 +20,16 @@
             @foreach (getMenus() as $menu)
                 @can('read ' . $menu->url)
                     @if ($menu->type_menu == 'parent')
-                        <li class="{{ request()->segment(1) == $menu->url ? 'active open' : '' }}">
-                            <a href="#" class="main-menu has-dropdown">
+                        <li class="{{ getParentMenus(request()->segment(1)) == $menu->name ? 'active open' : '' }}"> <a
+                                href="#" class="main-menu has-dropdown">
                                 <i class="{{ $menu->icon }}"></i>
                                 <span>{{ $menu->name }}</span>
                             </a>
-                            <ul class="sub-menu {{ request()->segment(1) == $menu->url ? 'expand' : '' }}">
+                            <ul class="sub-menu {{ getParentMenus(request()->segment(1)) == $menu->name ? 'expand' : '' }}">
                                 @foreach ($menu->subMenus as $submenu)
                                     @can('read ' . $submenu->url)
                                         <li
-                                            class="{{ request()->segment(1) == explode('/', $submenu->url)[0] && request()->segment(2) == explode('/', $submenu->url)[1] ? 'active' : '' }}">
+                                            class="{{ request()->segment(1) == explode('/', $submenu->url)[0] ? 'active' : '' }}">
                                             <a href="{{ url($submenu->url) }}" class="link">
                                                 <span>
                                                     {{ $submenu->name }}
