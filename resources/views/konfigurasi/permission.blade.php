@@ -39,7 +39,6 @@
             var table = $('.dataTable').DataTable({
                 processing: true,
                 serverSide: true,
-                scrollX: true,
                 ajax: "{{ route('permissions.index') }}",
                 columnDefs: [{
                     "targets": "_all",

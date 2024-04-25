@@ -23,7 +23,7 @@
                         <li class="{{ getParentMenus(request()->segment(1)) == $menu->name ? 'active open' : '' }}"> <a
                                 href="#" class="main-menu has-dropdown">
                                 <i class="{{ $menu->icon }}"></i>
-                                <span>{{ $menu->name }}</span>
+                                <span class="text-capitalize">{{ $menu->name }}</span>
                             </a>
                             <ul class="sub-menu {{ getParentMenus(request()->segment(1)) == $menu->name ? 'expand' : '' }}">
                                 @foreach ($menu->subMenus as $submenu)
@@ -31,7 +31,7 @@
                                         <li
                                             class="{{ request()->segment(1) == explode('/', $submenu->url)[0] ? 'active' : '' }}">
                                             <a href="{{ url($submenu->url) }}" class="link">
-                                                <span>
+                                                <span class="text-capitalize">
                                                     {{ $submenu->name }}
                                                 </span>
                                             </a>
@@ -44,7 +44,7 @@
                         <li class="{{ request()->segment(1) == $menu->url ? 'active' : '' }}">
                             <a href="{{ url($menu->url) }}" class="link">
                                 <i class="{{ $menu->icon }}"></i>
-                                <span>{{ $menu->name }}</span>
+                                <span class="text-capitalize">{{ $menu->name }}</span>
                             </a>
                         </li>
                     @endif

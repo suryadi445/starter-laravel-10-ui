@@ -18,7 +18,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="table-responsive text-left">
-                <table class="table table-bordered dataTable">
+                <table class="table table-bordered dataTable nowrap">
                     <thead>
                         <tr>
                             <th>No</th>
@@ -48,7 +48,6 @@
             // ajax table
             var table = $('.dataTable').DataTable({
                 processing: true,
-                scrollX: true,
                 serverSide: true,
                 ajax: "{{ route('navigation.index') }}",
                 columnDefs: [{
@@ -203,22 +202,28 @@
                     $('#main_menu').removeClass('d-none')
                     $('#icon').prop('readonly', true);
                     $('#url').prop('readonly', false)
+                    $('#url').val('');
                     $('#icon').val('');
                 } else if (value == 'parent') {
                     $('#icon').prop('readonly', false)
                     $('#url').prop('readonly', true)
+                    $('#url').val('#');
                     $('#main_menu').addClass('d-none')
                 } else {
                     $('#icon').prop('readonly', false)
                     $('#url').prop('readonly', false)
+                    $('#url').val('');
                     $('#main_menu').addClass('d-none')
                 }
             })
 
             $(document).on('input', '#name', function() {
                 let value = $(this).val()
+                let type_menu = $('#type_menu').val()
 
-                $('#url').val('#');
+                if (type_menu == 'parent') {
+                    $('#url').val('#');
+                }
             })
         });
     </script>
