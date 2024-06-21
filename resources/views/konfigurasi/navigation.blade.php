@@ -165,7 +165,7 @@
 
                 $.ajax({
                     data: $('#form-modalAction').serialize(),
-                    url: `{{ url('navigation/') }}/${id}`,
+                    url: '{{ route('navigation.index') }}' + (id.length ? '/' + id : ''),
                     type: "POST",
                     dataType: 'json',
                     success: function(response) {
